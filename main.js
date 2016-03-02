@@ -1,13 +1,14 @@
 var cardList = new Array();
-var specialCards = ["Jack", "Queen", "King", "Ace"];
+var specialCards = ["J", "Q", "K", "A"];
 var suits = ["Hearts", "Spades", "Diamonds", "Clubs"];
 var joker = "Joker";
+var cardImage;
 /* ---------- OBJECT PROTOTYPES ---------- */
 var Card = function(s, v) {
 	this.suit = s;
 	this.value = v;
 }
-
+//var 
 /* ---------- FUNCTIONS ---------- */
 function shuffle(array) {
   var remainingCards = array.length, t, i;
@@ -19,29 +20,6 @@ function shuffle(array) {
   }
   return array;
 }
-// function cardStructure(v, s) {
-// 	var div = document.createElement("div");
-// 	div.style.width = "100px";
-// 	div.style.height = "150px";
-// 	div.style.background = "white";
-// 	div.style.color = "black";
-// 	div.style.border = "solid black 1px";
-// 	div.style.float = "left";
-// 	document.body.appendChild(div);
-// }
-//checks object value
-// function strNumCheck(obj) {
-// 	console.log(obj)
-// 	var objectValue = obj.value;
-//  	if (Number.isInteger(objectValue) === true) {
-// 		var number = objectValue;
-// 		return number;
-// 	}
-// 	if (jQuery.type(objectValue) === 'string') {
-// 		var string = objectValue;
-// 		return string;
-// 	}
-// }
 //builds cards
 function buildCard(obj) {
 	var div = document.createElement("div");
@@ -51,53 +29,83 @@ function buildCard(obj) {
 	div.style.color = "black";
 	div.style.border = "solid black 1px";
 	div.style.float = "left";
+		//functions to build special cards
+		function kingCard() {
+			document.body.appendChild(div);
+			div.innerHTML = "<p>K</p><p>" + cardSuit + "</p><div class='inner-div'><img src='images/" +cardSuit+ ".svg' height='70' width='70' /></div>";
+			$('.inner-div').css({'width':'70px','height':'120px'});
+		}
+		function queenCard() {
+			document.body.appendChild(div);
+			div.innerHTML = "<p>Q</p><p>" + cardSuit + "</p><div class='inner-div'><img src='images/hearts.svg' height='70' width='70' /></div>";
+			$('.inner-div').css({'width':'70px','height':'120px'});
+		}
+		function jackCard() {
+			document.body.appendChild(div);
+			div.innerHTML = "<p>J</p><p>" + cardSuit + "</p><div class='inner-div'><img src='images/hearts.svg' height='70' width='70' /></div>";
+			$('.inner-div').css({'width':'70px','height':'120px'});
+		}
+		function aceCard() {
+			document.body.appendChild(div);
+			div.innerHTML = "<p>A</p><p>" + cardSuit + "</p><div class='inner-div'><img src='images/hearts.svg' height='70' width='70' /></div>";
+			$('.inner-div').css({'width':'70px','height':'120px'});
+		}
+		function numberCard() {
+			document.body.appendChild(div);
+			div.innerHTML = "<p>" + obj.value + "</p><div class='inner-div'>" + cardSuit + "</div>";
+			$('.inner-div').css({'width':'70px','height':'120px'});
+		}
+		//if statements for generating special cards
+		function specialCardDecision() {
+				if (obj.value === 'K') {
+					kingCard();
+				}
+				if (obj.value === 'Q') {
+					queenCard();
+				}
+				if (obj.value === 'J') {
+					jackCard();
+				}
+				if (obj.value === 'A') {
+					aceCard();
+				}
+		}
+		//check for card and output card
 		if (obj.suit === 'Hearts') {
+			cardSuit = "<img src='images/hearts.svg' height='20' width='20' />";
 			if (jQuery.type(obj.value) === 'string') {
 				//create special card
-				console.log('special card')
-				document.body.appendChild(div);
+				specialCardDecision()
 			} else {
-				console.log('number card')
-				document.body.appendChild(div);
-				div.innerHTML = "<p>" + obj.value + "</p><div class='inner-div'></div>";
-				$('.inner-div').css({'width':'70px','height':'120px'});
+			  numberCard();
 			}
 		}
 		if (obj.suit ==='Clubs') {
+			cardSuit = "<img src='images/clubs.svg' height='20' width='20' />";
 			if (jQuery.type(obj.value) === 'string') {
 				//create special card
-				console.log('special card')
-				document.body.appendChild(div);
+				specialCardDecision()
 			} else {
-				console.log('number card')
-				document.body.appendChild(div);
-				div.innerHTML = "<p>" + obj.value + "</p><div class='inner-div'></div>";
-				$('.inner-div').css({'width':'70px','height':'120px'});
+				numberCard();
 			}
 		}
 		if (obj.suit === 'Diamonds') {
-				if (jQuery.type(obj.value) === 'string') {
+			cardSuit = "<img src='images/diamonds.svg' height='20' width='20' />";
+			if (jQuery.type(obj.value) === 'string') {
 				//create special card
-				console.log('special card')
-				document.body.appendChild(div);
-			} else {
+					specialCardDecision()
+				} else {
 				console.log('number card')
-				document.body.appendChild(div);
-				div.innerHTML = "<p>" + obj.value + "</p><div class='inner-div'></div>";
-				$('.inner-div').css({'width':'70px','height':'120px'});
-				$('p').css('width', '10px')
-			}
+					numberCard();
+				}
 		}
 		if ( obj.suit === 'Spades') {
+			cardSuit = "<img src='images/spades.svg' height='20' width='20' />";
 				if (jQuery.type(obj.value) === 'string') {
 				//create special card
-				console.log('special card')
-				document.body.appendChild(div);
+				specialCardDecision()
 			} else {
-				console.log('number card')
-				document.body.appendChild(div);
-				div.innerHTML = "<p>" + obj.value + "</p><div class='inner-div'></div>";
-				$('.inner-div').css({'width':'70px','height':'120px'});
+				numberCard();
 			}
 		}
 		return("<div class=''></div>")
